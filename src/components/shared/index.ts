@@ -4,6 +4,7 @@ export * from "./calendar";
 export * from "./data-table";
 export * from "./date-picker";
 export * from "./header";
+export * from "./loader";
 export * from "./otp-input";
 export * from "./paginaion";
 export * from "./sidebar";

@@ -65,10 +65,12 @@ export const Sidebar = ({ role }: Props) => {
                 <AvatarImage />
                 <AvatarFallback className="bg-gray-400"></AvatarFallback>
               </Avatar>
-              <div className="space-y-1 text-center">
-                <p className="text-sm font-medium">Johnny Appleseed</p>
-                <p className="text-xs text-gray-600">johnnyappleseed@exmaple.com</p>
-              </div>
+              {!isCollapsed && (
+                <motion.div className="space-y-1 text-center" transition={{ delay: 1 }}>
+                  <p className="text-sm font-medium">Johnny Appleseed</p>
+                  <p className="text-xs text-gray-600">johnnyappleseed@exmaple.com</p>
+                </motion.div>
+              )}
             </div>
           </div>
           <nav className="space-y-1 px-3">

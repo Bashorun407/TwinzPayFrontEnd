@@ -3,6 +3,7 @@
 import { Bell, Moon, PanelLeft, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useGlobalStore } from "@/store/core";
 import { cn } from "@/lib";
 
@@ -22,13 +23,18 @@ export const Header = () => {
         <div className="h-7 w-px bg-gray-300"></div>
         <div>
           <p className="text-sm font-medium">Good morning, Johnny</p>
-          <p className="text-xs text-gray-600"></p>
+          <p className="text-xs text-gray-600">Let&apos;s get started</p>
         </div>
       </motion.div>
       <motion.div className="flex items-center gap-x-4">
-        <button className="grid size-8 shrink-0 place-items-center">
-          <Bell className="size-5" />
-        </button>
+        <Popover>
+          <PopoverTrigger>
+            <button className="grid size-8 shrink-0 place-items-center">
+              <Bell className="size-5" />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent align="end"></PopoverContent>
+        </Popover>
         <button className="grid size-8 shrink-0 place-items-center" onClick={handleToggleTheme}>
           {theme === "dark" ? (
             <Sun

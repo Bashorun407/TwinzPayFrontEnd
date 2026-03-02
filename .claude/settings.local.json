@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "allow": ["Bash(xargs:*)", "Bash(npx tsc:*)", "mcp__ide__getDiagnostics"]
+  }
+}
