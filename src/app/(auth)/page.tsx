@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuthStore } from "@/store/core";
 import { PASSWORD } from "@/config/regex";
 
 import { mockSignIn } from "@/__mock__/api";
@@ -19,6 +20,7 @@ const schema = Yup.object({
 });
 
 const Page = () => {
+  const { signin } = useAuthStore();
   const router = useRouter();
 
   const { handleChange, handleSubmit } = useFormik<Yup.InferType<typeof schema>>({
@@ -27,6 +29,7 @@ const Page = () => {
       mockSignIn(values)
         .then((response) => {
           if (response) {
+            signin(response, {});
             const path = response.user.role === "admin" ? "/admin" : "/overview";
             toast.success("Signed in successfully");
             router.push(path);

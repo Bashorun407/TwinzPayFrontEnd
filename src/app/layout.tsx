@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={`${hanken_grotesk.variable} antialiased`}>
         <QueryProvider>
           <AuthGuard>{children}</AuthGuard>
-          <Toaster position="top-right" />
+          <Toaster position="top-right" richColors />
         </QueryProvider>
       </body>
     </html>

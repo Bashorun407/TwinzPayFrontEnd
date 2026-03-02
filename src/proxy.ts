@@ -12,37 +12,32 @@ export const config = {
   name: "auth-proxy",
 };
 
-const PROTECTED_ROUTES = ["/admin", "/overview", "/bills", "/payments", "/beneficiaries", "/scheduled", "/settings"];
-const AUTH_ROUTES = ["/", "/signup", "/forgot-password", "/reset-password"];
+const PROTECTED_ROUTES = [
+  "/admin:path*",
+  "/overview",
+  "/bills",
+  "/payments",
+  "/beneficiaries",
+  "/scheduled",
+  "/settings",
+];
 
 export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-next-pathname", request.nextUrl.pathname);
 
   const url = request.nextUrl.clone();
-  const pathname = url.pathname;
+  const has_token = request.cookies.has("ACCESS_TOKEN");
 
-  const accessToken = request.cookies.get("accessToken")?.value;
-  const isAuthenticated = !!accessToken;
-
-  const redirect = (redirectUrl: NextURL | string) => {
-    const destination = typeof redirectUrl === "string" ? redirectUrl : redirectUrl.toString();
+  const redirect = (url: NextURL | string) => {
+    const destination = typeof url === "string" ? url : url.toString();
     const response = NextResponse.redirect(destination);
     response.headers.set("x-middleware-cache", "no-cache");
     return response;
   };
 
-  const isProtectedRoute = PROTECTED_ROUTES.some((route) => pathname.startsWith(route));
-  const isAuthRoute = AUTH_ROUTES.some((route) => pathname.startsWith(route));
-
-  if (!isAuthenticated && isProtectedRoute) {
+  if (!has_token && PROTECTED_ROUTES.some((path) => url.pathname.startsWith(path))) {
     url.pathname = "/";
-    url.searchParams.set("callbackUrl", pathname);
-    return redirect(url);
-  }
-
-  if (isAuthenticated && isAuthRoute) {
-    url.pathname = "/overview";
     return redirect(url);
   }
 

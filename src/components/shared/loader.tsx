@@ -20,7 +20,7 @@ export const Loader = ({ className, fullScreen = false, message = "Loading..." }
       )}
     >
       <motion.div className="flex flex-col items-center gap-y-5">
-        <motion.div className="size-8 animate-spin rounded-full border-4 border-gray-600 border-t-transparent sm:size-16"></motion.div>
+        <motion.div className="size-6 animate-spin rounded-full border-4 border-gray-600 border-t-transparent sm:size-12"></motion.div>
         <p className="text-sm text-gray-600 sm:text-xl">{message}</p>
       </motion.div>
     </motion.div>

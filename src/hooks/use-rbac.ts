@@ -2,64 +2,10 @@
 
 import { useMemo } from "react";
 
-import type { User } from "@/types";
 import { ADMIN_ROUTES, USER_ROUTES } from "@/config/routes";
+import type { User, UserRole } from "@/types";
 
-type Role = User["role"];
-
-export const permissions = [
-  "view:dashboard",
-  "view:admin",
-  "manage:users",
-  "manage:transactions",
-  "manage:bill-types",
-  "view:reports",
-  "manage:settings",
-  "view:bills",
-  "manage:bills",
-  "view:payments",
-  "manage:payments",
-  "view:beneficiaries",
-  "manage:beneficiaries",
-  "view:scheduled",
-  "manage:scheduled",
-] as const;
-
-type Permission = (typeof permissions)[number];
-
-const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
-  admin: [
-    "view:dashboard",
-    "view:admin",
-    "manage:users",
-    "manage:transactions",
-    "manage:bill-types",
-    "view:reports",
-    "manage:settings",
-    "view:bills",
-    "manage:bills",
-    "view:payments",
-    "manage:payments",
-    "view:beneficiaries",
-    "manage:beneficiaries",
-    "view:scheduled",
-    "manage:scheduled",
-  ],
-  user: [
-    "view:dashboard",
-    "view:bills",
-    "manage:bills",
-    "view:payments",
-    "manage:payments",
-    "view:beneficiaries",
-    "manage:beneficiaries",
-    "view:scheduled",
-    "manage:scheduled",
-    "manage:settings",
-  ],
-};
-
-const ROLE_ALLOWED_PATHS: Record<Role, string[]> = {
+const ROLE_ALLOWED_PATHS: Record<UserRole, string[]> = {
   admin: ADMIN_ROUTES.map((route) => route.href),
   user: USER_ROUTES.map((route) => route.href),
 };
@@ -67,27 +13,10 @@ const ROLE_ALLOWED_PATHS: Record<Role, string[]> = {
 export const useRbac = (user: User | null) => {
   const role = user?.role ?? null;
 
-  const permissions = useMemo(() => {
-    if (!role) return [];
-    return ROLE_PERMISSIONS[role] || [];
-  }, [role]);
-
   const allowedPaths = useMemo(() => {
     if (!role) return [];
     return ROLE_ALLOWED_PATHS[role] || [];
   }, [role]);
-
-  const hasPermission = (permission: Permission): boolean => {
-    return permissions.includes(permission);
-  };
-
-  const hasAnyPermission = (perms: Permission[]): boolean => {
-    return perms.some((p) => permissions.includes(p));
-  };
-
-  const hasAllPermissions = (perms: Permission[]): boolean => {
-    return perms.every((p) => permissions.includes(p));
-  };
 
   const canAccessPath = (path: string): boolean => {
     if (!role) return false;
@@ -113,16 +42,10 @@ export const useRbac = (user: User | null) => {
 
   return {
     role,
-    permissions,
     allowedPaths,
-    hasPermission,
-    hasAnyPermission,
-    hasAllPermissions,
     canAccessPath,
     getDefaultPath,
     isAdmin,
     isUser,
   };
 };
-
-export type { Permission, Role };
