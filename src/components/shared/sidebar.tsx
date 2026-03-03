@@ -104,25 +104,27 @@ export const Sidebar = ({ role }: Props) => {
             })}
           </nav>
         </div>
-        <Dialog onOpenChange={setOpen} open={open}>
-          <DialogTrigger asChild>
-            <Button className="flex w-full items-center justify-start" variant="destructive">
-              <LogOut className="size-5" /> Logout
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogTitle>Log Out</DialogTitle>
-            <DialogDescription>Are you sure you want to logout?</DialogDescription>
-            <div className="flex items-center justify-end gap-x-4">
-              <Button onClick={() => setOpen(false)} variant="outline">
-                Cancel
+        <div className="w-full p-3">
+          <Dialog onOpenChange={setOpen} open={open}>
+            <DialogTrigger asChild>
+              <Button className="flex w-full items-center justify-start" variant="destructive">
+                <LogOut className="size-5" /> Logout
               </Button>
-              <Button onClick={() => setOpen(false)} variant="destructive">
-                Log Out
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle>Log Out</DialogTitle>
+              <DialogDescription>Are you sure you want to logout?</DialogDescription>
+              <div className="flex items-center justify-end gap-x-4">
+                <Button onClick={() => setOpen(false)} variant="outline">
+                  Cancel
+                </Button>
+                <Button onClick={() => setOpen(false)} variant="destructive">
+                  Log Out
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
     </motion.aside>
   );
