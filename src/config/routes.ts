@@ -9,6 +9,7 @@ import {
   BarChart3,
   FileText,
   type LucideIcon,
+  PiggyBank,
 } from "lucide-react";
 
 type RouteConfig = {
@@ -42,6 +43,11 @@ export const USER_ROUTES: RouteConfig[] = [
     name: "Scheduled",
     href: "/scheduled",
     icon: CalendarClock,
+  },
+  {
+    name: "Accounts",
+    href: "/accounts",
+    icon: PiggyBank,
   },
   {
     name: "Settings",
