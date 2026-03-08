@@ -78,7 +78,6 @@ export const useAuthStore = createPersistMiddleware<AuthStore>("AUTH_STORE", (se
       Cookies.set("ACCESS_TOKEN", payload.accessToken, cookieOptions);
       set({ user: payload.user, isHydrated: true });
       if (options?.redirectUrl) {
-        // Small delay to ensure zustand persist has saved to localStorage
         setTimeout(() => UserManager.redirect(options.redirectUrl), 100);
       }
     } catch (error) {

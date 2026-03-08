@@ -18,13 +18,13 @@ const AuthGuard = ({ children }: Props) => {
     () => false,
   );
 
-  const { isLoading, shouldRedirect, canAccessCurrentRoute } = useProtectedRoutes();
+  const { isLoading, shouldRedirect } = useProtectedRoutes();
 
   if (!isMounted || isLoading) {
     return <Loader fullScreen />;
   }
 
-  if (shouldRedirect || !canAccessCurrentRoute) {
+  if (shouldRedirect) {
     return <Loader fullScreen />;
   }
 

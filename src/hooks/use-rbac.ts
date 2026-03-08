@@ -5,6 +5,8 @@ import { useMemo } from "react";
 import { ADMIN_ROUTES, USER_ROUTES } from "@/config/routes";
 import type { User, UserRole } from "@/types";
 
+const userRoutes = USER_ROUTES.map((route) => route.href);
+
 const ROLE_ALLOWED_PATHS: Record<UserRole, string[]> = {
   admin: ADMIN_ROUTES.map((route) => route.href),
   user: USER_ROUTES.map((route) => route.href),
@@ -26,7 +28,7 @@ export const useRbac = (user: User | null) => {
     }
 
     if (role === "user") {
-      return !path.startsWith("/admin") || path === "/";
+      return userRoutes.map((route) => route).includes(path) || path === "/";
     }
 
     return allowedPaths.some((allowedPath) => path === allowedPath || path.startsWith(`${allowedPath}/`));

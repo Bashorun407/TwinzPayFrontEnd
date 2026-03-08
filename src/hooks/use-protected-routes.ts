@@ -9,8 +9,8 @@ import { useRbac } from "./use-rbac";
 const PUBLIC_ROUTES = ["/", "/signup", "/forgot-password", "/reset-password"];
 
 export const useProtectedRoutes = () => {
-  const router = useRouter();
   const pathname = usePathname();
+  const router = useRouter();
 
   const { user, isLoading } = useAuthStore();
   const { canAccessPath, getDefaultPath, role } = useRbac(user);
@@ -19,14 +19,10 @@ export const useProtectedRoutes = () => {
     return PUBLIC_ROUTES.some((route) => pathname === route || (route !== "/" && pathname.startsWith(route)));
   }, [pathname]);
 
-  const isProtectedRoute = useMemo(() => {
-    return !isPublicRoute;
-  }, [isPublicRoute]);
-
   const shouldRedirect = useMemo(() => {
     if (isLoading) return { should: false, to: null };
 
-    if (!user && isProtectedRoute) {
+    if (!user && !isPublicRoute) {
       return { should: true, to: "/" };
     }
 
@@ -39,8 +35,7 @@ export const useProtectedRoutes = () => {
     }
 
     return { should: false, to: null };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, user, isProtectedRoute, canAccessPath, pathname, getDefaultPath]);
+  }, [isLoading, user, isPublicRoute, canAccessPath, pathname, getDefaultPath]);
 
   useEffect(() => {
     if (shouldRedirect.should && shouldRedirect.to) {
@@ -58,10 +53,8 @@ export const useProtectedRoutes = () => {
   return {
     isLoading,
     isPublicRoute,
-    isProtectedRoute,
     shouldRedirect: shouldRedirect.should,
     redirectTo: shouldRedirect.to,
-    canAccessCurrentRoute: !shouldRedirect.should,
     checkAccess,
     user,
     role,

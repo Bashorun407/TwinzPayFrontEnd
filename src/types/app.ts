@@ -28,3 +28,14 @@ export interface HttpRequest {
   path: string[];
   method: HttpMethod;
 }
+
+export interface HttpResponse<T> {
+  data: T;
+}
+
+export interface HttpError {
+  error: string;
+  message: string;
+  success: boolean;
+  status: number;
+}
