@@ -1,4 +1,6 @@
-export default function AdminDashboardPage() {
+import { formatCurrency } from "@/lib";
+
+export default function Page() {
   return (
     <div className="space-y-6">
       <div>
@@ -9,22 +11,22 @@ export default function AdminDashboardPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <div className="bg-card rounded-lg border p-6">
           <h3 className="text-muted-foreground text-sm font-medium">Total Users</h3>
-          <p className="mt-2 text-2xl font-bold">0</p>
+          <p className="mt-2 text-2xl font-bold">{formatCurrency(0)}</p>
           <p className="text-muted-foreground mt-1 text-xs">+0 this month</p>
         </div>
         <div className="bg-card rounded-lg border p-6">
           <h3 className="text-muted-foreground text-sm font-medium">Total Transactions</h3>
-          <p className="mt-2 text-2xl font-bold">0</p>
+          <p className="mt-2 text-2xl font-bold">{formatCurrency(0)}</p>
           <p className="text-muted-foreground mt-1 text-xs">+0 this month</p>
         </div>
         <div className="bg-card rounded-lg border p-6">
           <h3 className="text-muted-foreground text-sm font-medium">Transaction Volume</h3>
-          <p className="mt-2 text-2xl font-bold">$0.00</p>
+          <p className="mt-2 text-2xl font-bold">{formatCurrency(0)}</p>
           <p className="text-muted-foreground mt-1 text-xs">+0% from last month</p>
         </div>
         <div className="bg-card rounded-lg border p-6">
           <h3 className="text-muted-foreground text-sm font-medium">Active Bills</h3>
-          <p className="mt-2 text-2xl font-bold">0</p>
+          <p className="mt-2 text-2xl font-bold">{formatCurrency(0)}</p>
           <p className="text-muted-foreground mt-1 text-xs">Across all users</p>
         </div>
       </div>

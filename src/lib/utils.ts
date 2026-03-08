@@ -24,8 +24,8 @@ export function formatCurrency(amount: number, currency = "NGN") {
   }
 
   const formatted = new Intl.NumberFormat("en-NG", {
-    maximumFractionDigits: 1,
-    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
     style: "currency",
     currency,
   }).format(value);

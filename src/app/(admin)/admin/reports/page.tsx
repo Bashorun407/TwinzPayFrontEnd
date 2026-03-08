@@ -1,5 +1,7 @@
 import { Download } from "lucide-react";
 
+import { formatCurrency } from "@/lib";
+
 export default function Page() {
   return (
     <div className="space-y-6">
@@ -25,7 +27,7 @@ export default function Page() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <div className="bg-card rounded-lg border p-6">
           <h3 className="text-muted-foreground text-sm font-medium">Total Revenue</h3>
-          <p className="mt-2 text-2xl font-bold">$0.00</p>
+          <p className="mt-2 text-2xl font-bold">{formatCurrency(0)}</p>
           <p className="mt-1 text-xs text-green-600">+0% from last period</p>
         </div>
         <div className="bg-card rounded-lg border p-6">
